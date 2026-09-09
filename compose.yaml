@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: 'postgres:18'
+    container_name: 'database'
+    environment:
+      - 'POSTGRES_DB=controle-veiculos'
+      - 'POSTGRES_PASSWORD=dirceu5967'
+      - 'POSTGRES_USER=user'
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+volumes:
+  postgres_data:

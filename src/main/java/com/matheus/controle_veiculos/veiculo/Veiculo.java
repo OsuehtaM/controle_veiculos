@@ -19,12 +19,12 @@ public class Veiculo {
     @Column(name = "veiculo_id")
     private Long veiculoId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String marca;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String modelo;
 
-    @Column(nullable = false, length = 10, unique = true)
+    @Column(nullable = false, length = 7, unique = true)
     private String placa;
 }

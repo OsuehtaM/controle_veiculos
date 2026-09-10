@@ -13,6 +13,7 @@ public record VeiculoRequest(
                 example = "Volkswagen"
         )
         @NotBlank(message = "Veículo precisa de uma marca")
+        @Size(max = 100, message = "Tamanho de marca de veículo inválido")
         String marca,
 
         @Schema(
@@ -20,6 +21,7 @@ public record VeiculoRequest(
                 example = "Gol"
         )
         @NotBlank(message = "Veículo precisa de um modelo")
+        @Size(max = 100, message = "Tamanho de modelo de veículo inválido")
         String modelo,
 
         @Schema(

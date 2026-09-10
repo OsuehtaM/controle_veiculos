@@ -1,5 +1,6 @@
 package com.matheus.controle_veiculos.veiculo.dto;
 
+import com.matheus.controle_veiculos.veiculo.validation.PlacaValida;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -26,6 +27,6 @@ public record VeiculoRequest(
                 example = "AAA1A11"
         )
         @NotBlank(message = "Veículo precisa de uma placa")
-        @Size(max = 7, message = "Placa com formato inválido")
+        @PlacaValida
         String placa
 ) {}

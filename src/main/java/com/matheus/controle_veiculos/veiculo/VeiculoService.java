@@ -2,6 +2,8 @@ package com.matheus.controle_veiculos.veiculo;
 
 import com.matheus.controle_veiculos.veiculo.dto.VeiculoRequest;
 import com.matheus.controle_veiculos.veiculo.dto.VeiculoResponse;
+import com.matheus.controle_veiculos.veiculo.exception.PlacaIndisponivel;
+import com.matheus.controle_veiculos.veiculo.exception.VeiculoNaoEncontrado;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,7 @@ public class VeiculoService {
     public VeiculoResponse save (VeiculoRequest request){
 
         if ( repository.existsByPlaca(request.placa().toUpperCase())){
-            throw new RuntimeException("Placa indisponível");
+            throw new PlacaIndisponivel(request.placa());
         }
 
         Veiculo entity = mapper.toEntity(request);
@@ -38,7 +40,7 @@ public class VeiculoService {
     public VeiculoResponse getById (Long id){
 
         Veiculo entity = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Veículo não encontrado."));
+                .orElseThrow(VeiculoNaoEncontrado::new);
 
         return mapper.toResponse(entity);
     }
@@ -68,7 +70,7 @@ public class VeiculoService {
 
     public void delete (Long id){
         if (!repository.existsById(id)){
-            throw new RuntimeException("Veículo não encontrado.");
+            throw new VeiculoNaoEncontrado();
         }
 
         repository.deleteById(id);

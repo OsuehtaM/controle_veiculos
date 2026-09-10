@@ -9,6 +9,10 @@ import org.mapstruct.Mapping;
 public interface VeiculoMapper {
 
     @Mapping(
+            target = "veiculoId",
+            ignore = true
+    )
+    @Mapping(
             target = "placa",
             expression = "java(request.placa().toUpperCase())"
     )

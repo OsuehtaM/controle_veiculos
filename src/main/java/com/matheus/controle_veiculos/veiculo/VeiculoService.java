@@ -48,14 +48,14 @@ public class VeiculoService {
     public VeiculoResponse update (VeiculoRequest request, Long id){
 
         Veiculo entity = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Veículo não encontrado."));
+                .orElseThrow(VeiculoNaoEncontrado::new);
 
         String placa = request.placa().toUpperCase();
 
         if (!placa.equals(entity.getPlaca())){
 
             if ( repository.existsByPlaca(placa)){
-                throw new RuntimeException("Placa indisponível");
+                throw new PlacaIndisponivel(request.placa());
             }
         }
 
@@ -69,6 +69,7 @@ public class VeiculoService {
     }
 
     public void delete (Long id){
+
         if (!repository.existsById(id)){
             throw new VeiculoNaoEncontrado();
         }

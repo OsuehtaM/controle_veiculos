@@ -16,6 +16,10 @@ public interface VeiculoMapper {
             target = "placa",
             expression = "java(request.placa().toUpperCase())"
     )
+    @Mapping(
+            target = "viagens",
+            ignore = true
+    )
     Veiculo toEntity(VeiculoRequest request);
 
     VeiculoResponse toResponse (Veiculo entity);

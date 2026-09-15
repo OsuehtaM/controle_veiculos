@@ -1,10 +1,14 @@
 package com.matheus.controle_veiculos.veiculo;
 
+import com.matheus.controle_veiculos.viagem.Viagem;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "veiculos")
 @Getter
@@ -27,4 +31,7 @@ public class Veiculo {
 
     @Column(nullable = false, length = 7, unique = true)
     private String placa;
+
+    @OneToMany(mappedBy = "veiculo")
+    private List<Viagem> viagens = new ArrayList<>();
 }

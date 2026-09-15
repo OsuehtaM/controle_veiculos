@@ -1,9 +1,9 @@
 package com.matheus.controle_veiculos.veiculo;
 
+import com.matheus.controle_veiculos.exception.RecursoNaoEncontradoException;
 import com.matheus.controle_veiculos.veiculo.dto.VeiculoRequest;
 import com.matheus.controle_veiculos.veiculo.dto.VeiculoResponse;
 import com.matheus.controle_veiculos.veiculo.exception.PlacaIndisponivel;
-import com.matheus.controle_veiculos.veiculo.exception.VeiculoNaoEncontrado;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +40,7 @@ public class VeiculoService {
     public VeiculoResponse getById (Long id){
 
         Veiculo entity = repository.findById(id)
-                .orElseThrow(VeiculoNaoEncontrado::new);
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Veiculo", id));
 
         return mapper.toResponse(entity);
     }
@@ -48,7 +48,7 @@ public class VeiculoService {
     public VeiculoResponse update (VeiculoRequest request, Long id){
 
         Veiculo entity = repository.findById(id)
-                .orElseThrow(VeiculoNaoEncontrado::new);
+                .orElseThrow(() -> new RecursoNaoEncontradoException("Veiculo", id));
 
         String placa = request.placa().toUpperCase();
 
@@ -71,7 +71,7 @@ public class VeiculoService {
     public void delete (Long id){
 
         if (!repository.existsById(id)){
-            throw new VeiculoNaoEncontrado();
+            throw  new RecursoNaoEncontradoException("Veiculo", id);
         }
 
         repository.deleteById(id);

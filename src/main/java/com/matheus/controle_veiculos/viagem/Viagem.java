@@ -1,6 +1,7 @@
 package com.matheus.controle_veiculos.viagem;
 
 import com.matheus.controle_veiculos.exception.RegraDeNegocioException;
+import com.matheus.controle_veiculos.reabastecimento.Reabastecimento;
 import com.matheus.controle_veiculos.veiculo.Veiculo;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -10,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "viagens")
@@ -39,6 +42,9 @@ public class Viagem {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "veiculo_id", nullable = false)
     private Veiculo veiculo;
+
+    @OneToMany(mappedBy = "viagem")
+    private List<Reabastecimento> reabastecimentos = new ArrayList<>();
 
     public void calcularDistancia () {
         if (quilometragemFinal < quilometragemInicial){

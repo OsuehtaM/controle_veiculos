@@ -8,6 +8,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 
 import java.time.LocalDate;
 
+@Schema(description = "Dados necessários para atualizar uma viagem")
 public record ViagemUpdateRequest (
 
         @Schema(

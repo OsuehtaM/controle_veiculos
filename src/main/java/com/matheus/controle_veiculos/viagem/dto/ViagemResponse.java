@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.LocalDate;
 
+@Schema(description = "Dados de resposta da API sobre a viagem")
 public record ViagemResponse(
 
         @Schema(

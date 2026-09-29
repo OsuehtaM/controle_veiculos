@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
+@Schema(description = "Dados necessários para cadastrar uma viagem")
 public record ViagemRequest(
 
         @Schema (

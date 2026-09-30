@@ -2,6 +2,7 @@ package com.matheus.controle_veiculos.reabastecimento;
 
 import com.matheus.controle_veiculos.reabastecimento.dto.ReabastecimentoRequest;
 import com.matheus.controle_veiculos.reabastecimento.dto.ReabastecimentoResponse;
+import com.matheus.controle_veiculos.reabastecimento.dto.ReabastecimentoResumoResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -19,5 +20,7 @@ public interface ReabastecimentoMapper {
     Reabastecimento toEntity (ReabastecimentoRequest request);
 
     ReabastecimentoResponse toResponse (Reabastecimento entity);
+
+    ReabastecimentoResumoResponse toResumoResponse (Reabastecimento entity);
 
 }

@@ -2,6 +2,7 @@ package com.matheus.controle_veiculos.gasto;
 
 import com.matheus.controle_veiculos.gasto.dto.GastoRequest;
 import com.matheus.controle_veiculos.gasto.dto.GastoResponse;
+import com.matheus.controle_veiculos.gasto.dto.GastoResumoResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -19,4 +20,6 @@ public interface GastoMapper {
     Gasto toEntity (GastoRequest request);
 
     GastoResponse toResponse (Gasto entity);
+
+    GastoResumoResponse toResumoResponse (Gasto entity);
 }

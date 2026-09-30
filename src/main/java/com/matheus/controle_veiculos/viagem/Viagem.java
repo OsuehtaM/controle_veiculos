@@ -11,6 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,10 +52,38 @@ public class Viagem {
     @OneToMany(mappedBy = "viagem")
     private List<Gasto> gastos = new ArrayList<>();
 
-    public void calcularDistancia () {
+    public void calcularDistancia() {
         if (quilometragemFinal <= quilometragemInicial){
             throw new RegraDeNegocioException("A quilometragem final precisa ser superior à inicial");
         }
         this.distancia = quilometragemFinal - quilometragemInicial;
+    }
+
+    public BigDecimal calcularGastos(){
+        return gastos.stream()
+                .map(Gasto::getValor)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public BigDecimal calcularGastosCombustivel(){
+        return reabastecimentos.stream()
+                .map(Reabastecimento::calcularGasto)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public BigDecimal calcularCustoTotal(){
+        return calcularGastos().add(calcularGastosCombustivel());
+    }
+
+    public BigDecimal calcularCustoPorQuilometro() {
+        if (distancia == null) {
+            return null;
+        }
+
+        return calcularCustoTotal().divide(
+                BigDecimal.valueOf(distancia),
+                2,
+                RoundingMode.HALF_UP
+        );
     }
 }

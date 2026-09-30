@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Entity
 @Table(name = "reabastecimentos")
@@ -31,4 +32,10 @@ public class Reabastecimento {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "viagem_id", nullable = false)
     private Viagem viagem;
+
+    public BigDecimal calcularGasto() {
+        return quantidadeAbastecida
+                .multiply(valorLitro)
+                .setScale(2, RoundingMode.HALF_UP);
+    }
 }

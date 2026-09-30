@@ -1,5 +1,8 @@
 package com.matheus.controle_veiculos.viagem;
 
+import com.matheus.controle_veiculos.gasto.dto.GastoResumoResponse;
+import com.matheus.controle_veiculos.reabastecimento.dto.ReabastecimentoResumoResponse;
+import com.matheus.controle_veiculos.viagem.dto.RelatorioViagemResponse;
 import com.matheus.controle_veiculos.viagem.dto.ViagemRequest;
 import com.matheus.controle_veiculos.viagem.dto.ViagemResponse;
 import com.matheus.controle_veiculos.viagem.dto.ViagemUpdateRequest;
@@ -40,6 +43,30 @@ public class ViagemController {
     @GetMapping("/{id}")
     public ResponseEntity<ViagemResponse> getById (@PathVariable Long id){
         ViagemResponse response = service.getById(id);
+
+        return ResponseEntity
+                .ok(response);
+    }
+
+    @GetMapping("/{id}/relatorio")
+    public ResponseEntity<RelatorioViagemResponse> gerarRelatorio (@PathVariable Long id){
+        RelatorioViagemResponse response = service.gerarRelatorio(id);
+
+        return ResponseEntity
+                .ok(response);
+    }
+
+    @GetMapping("/{id}/gastos")
+    public ResponseEntity<List<GastoResumoResponse>> getGastos (@PathVariable Long id){
+        List<GastoResumoResponse> response = service.getGastos(id);
+
+        return ResponseEntity
+                .ok(response);
+    }
+
+    @GetMapping("/{id}/reabastecimentos")
+    public ResponseEntity<List<ReabastecimentoResumoResponse>> getReabastecimentos (@PathVariable Long id){
+        List<ReabastecimentoResumoResponse> response = service.getReabastecimentos(id);
 
         return ResponseEntity
                 .ok(response);

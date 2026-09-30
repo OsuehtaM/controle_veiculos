@@ -6,16 +6,19 @@ import com.matheus.controle_veiculos.veiculo.dto.VeiculoResponse;
 import com.matheus.controle_veiculos.veiculo.exception.PlacaIndisponivel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class VeiculoService {
 
     private final VeiculoRepository repository;
     private final VeiculoMapper mapper;
 
+    @Transactional
     public VeiculoResponse save (VeiculoRequest request){
 
         if ( repository.existsByPlaca(request.placa().toUpperCase())){
@@ -45,6 +48,7 @@ public class VeiculoService {
         return mapper.toResponse(entity);
     }
 
+    @Transactional
     public VeiculoResponse update (VeiculoRequest request, Long id){
 
         Veiculo entity = repository.findById(id)
@@ -68,6 +72,7 @@ public class VeiculoService {
         return mapper.toResponse(savedEntity);
     }
 
+    @Transactional
     public void delete (Long id){
 
         if (!repository.existsById(id)){

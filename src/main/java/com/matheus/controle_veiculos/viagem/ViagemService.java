@@ -8,17 +8,20 @@ import com.matheus.controle_veiculos.viagem.dto.ViagemResponse;
 import com.matheus.controle_veiculos.viagem.dto.ViagemUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ViagemService {
 
     private final ViagemRepository repository;
     private final VeiculoRepository veiculoRepository;
     private final ViagemMapper mapper;
 
+    @Transactional
     public ViagemResponse save (ViagemRequest request){
 
         Veiculo veiculo = veiculoRepository.findById(request.veiculoId())
@@ -52,6 +55,7 @@ public class ViagemService {
         return mapper.toResponse(entity);
     }
 
+    @Transactional
     public ViagemResponse update (Long id, ViagemUpdateRequest request){
         Viagem entity = repository.findById(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Viagem", id));
@@ -70,6 +74,8 @@ public class ViagemService {
 
         return mapper.toResponse(savedEntity);
     }
+
+    @Transactional
     public void delete (Long id){
 
         if (!repository.existsById(id)){

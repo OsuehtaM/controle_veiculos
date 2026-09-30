@@ -47,7 +47,7 @@ public class Viagem {
     private List<Reabastecimento> reabastecimentos = new ArrayList<>();
 
     public void calcularDistancia () {
-        if (quilometragemFinal < quilometragemInicial){
+        if (quilometragemFinal <= quilometragemInicial){
             throw new RegraDeNegocioException("A quilometragem final precisa ser superior à inicial");
         }
         this.distancia = quilometragemFinal - quilometragemInicial;

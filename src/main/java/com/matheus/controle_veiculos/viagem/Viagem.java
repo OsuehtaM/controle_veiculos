@@ -1,6 +1,7 @@
 package com.matheus.controle_veiculos.viagem;
 
 import com.matheus.controle_veiculos.exception.RegraDeNegocioException;
+import com.matheus.controle_veiculos.gasto.Gasto;
 import com.matheus.controle_veiculos.reabastecimento.Reabastecimento;
 import com.matheus.controle_veiculos.veiculo.Veiculo;
 import jakarta.persistence.*;
@@ -45,6 +46,9 @@ public class Viagem {
 
     @OneToMany(mappedBy = "viagem")
     private List<Reabastecimento> reabastecimentos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "viagem")
+    private List<Gasto> gastos = new ArrayList<>();
 
     public void calcularDistancia () {
         if (quilometragemFinal <= quilometragemInicial){

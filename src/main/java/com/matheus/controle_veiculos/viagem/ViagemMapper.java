@@ -20,6 +20,14 @@ public interface ViagemMapper {
             target = "veiculo",
             ignore = true
     )
+    @Mapping(
+            target = "reabastecimentos",
+            ignore = true
+    )
+    @Mapping(
+            target = "gastos",
+            ignore = true
+    )
     Viagem toEntity (ViagemRequest request);
 
     ViagemResponse toResponse (Viagem entity);
